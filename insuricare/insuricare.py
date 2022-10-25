@@ -46,8 +46,7 @@ class Insuricare:
         data['policy_sales_channel'] = self.policy_sales_channel_scaler.transform(X=data[['policy_sales_channel']].values, y=data[['response']].values)
 
         # vehicle_age
-        mapping = {'below_1_year': 1, 'between_1_2_years': 2, 'above_2_years': 3} # mapping ordered values
-        data['vehicle_age'] = self.vehicle_age_oe_scaler.transform(X=data[['vehicle_age']].values, y=data[['response']].values, mapping=mapping)
+        data['vehicle_age'] = self.vehicle_age_oe_scaler.transform(data[['vehicle_age']].values)
 
         # Now rescaling new vehicle_age - MinMaxScaler
         data['vehicle_age'] = self.vehicle_age_mms_scaler.transform(data[['vehicle_age']].values)
