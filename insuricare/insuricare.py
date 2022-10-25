@@ -1,7 +1,7 @@
 import pickle
 import pandas as pd
 
-class Insurance:
+class Insuricare:
     def __init__(self):
         self.path = 'C:/Users/bruno/OneDrive/Documentos/repos/pa-health-insurance-cross-sell/'
         self.age_scaler   = pickle.load(open(self.home_path + 'scalers/age_scaler.pkl', 'rb'))
