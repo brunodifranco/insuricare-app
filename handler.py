@@ -1,8 +1,8 @@
+import os
 import pickle
 import pandas as pd
 from flask import Flask, Response, request
 from insuricare.insuricare import Insuricare
-import os
 
 model = pickle.load(open('model/model_insuricare.pkl', 'rb'))
 
