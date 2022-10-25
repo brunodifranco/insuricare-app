@@ -39,11 +39,11 @@ class Insuricare:
 
         # region_code
         data['region_code'] = data['region_code'].astype(str)
-        data['region_code'] = self.region_code_scaler.transform(X=data[['region_code']].values, y=data[['response']].values)
+        data.loc[:,'region_code'] = data['region_code'].map(self.region_code_scaler)
 
         # policy_sales_channel 
         data['policy_sales_channel'] = data['policy_sales_channel'].astype(str)
-        data['policy_sales_channel'] = self.policy_sales_channel_scaler.transform(X=data[['policy_sales_channel']].values, y=data[['response']].values)
+        data.loc[:,'policy_sales_channel'] = data['policy_sales_channel'].map(self.policy_sales_channel_scaler)
 
         # vehicle_age
         data['vehicle_age'] = self.vehicle_age_oe_scaler.transform(data[['vehicle_age']].values)
