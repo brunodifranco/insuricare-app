@@ -4,13 +4,13 @@ import pandas as pd
 class Insuricare:
     def __init__(self):
         self.path = 'C:/Users/bruno/OneDrive/Documentos/repos/pa-health-insurance-cross-sell/'
-        self.age_scaler   = pickle.load(open(self.home_path + 'scalers/age_scaler.pkl', 'rb'))
-        self.annual_premium_scaler   = pickle.load(open(self.home_path + 'scalers/annual_premium_scaler.pkl', 'rb'))
-        self.policy_sales_channel_scaler   = pickle.load(open(self.home_path + 'scalers/policy_sales_channel_scaler.pkl', 'rb'))
-        self.region_code_scaler   = pickle.load(open(self.home_path + 'scalers/region_code_scaler.pkl', 'rb'))
-        self.vehicle_age_mms_scaler   = pickle.load(open(self.home_path + 'scalers/vehicle_age_mms_scaler.pkl', 'rb'))
-        self.vehicle_age_oe_scaler   = pickle.load(open(self.home_path + 'scalers/vehicle_age_oe_scaler.pkl', 'rb'))
-        self.vintage_scaler   = pickle.load(open(self.home_path + 'scalers/vintage_scaler.pkl', 'rb'))
+        self.age_scaler   = pickle.load(open(self.path + 'scalers/age_scaler.pkl', 'rb'))
+        self.annual_premium_scaler   = pickle.load(open(self.path + 'scalers/annual_premium_scaler.pkl', 'rb'))
+        self.policy_sales_channel_scaler   = pickle.load(open(self.path + 'scalers/policy_sales_channel_scaler.pkl', 'rb'))
+        self.region_code_scaler   = pickle.load(open(self.path + 'scalers/region_code_scaler.pkl', 'rb'))
+        self.vehicle_age_mms_scaler   = pickle.load(open(self.path + 'scalers/vehicle_age_mms_scaler.pkl', 'rb'))
+        self.vehicle_age_oe_scaler   = pickle.load(open(self.path + 'scalers/vehicle_age_oe_scaler.pkl', 'rb'))
+        self.vintage_scaler   = pickle.load(open(self.path + 'scalers/vintage_scaler.pkl', 'rb'))
 
     def data_cleaning(self, data):
         return data # No data cleaning transformations were applied
