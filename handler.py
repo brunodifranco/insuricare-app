@@ -20,21 +20,23 @@ def insurance_predict():
                     
         else:
             test_raw = pd.DataFrame(test_json, columns=test_json[0].keys())
+            
+        original_test_raw = test_raw.copy()    
     
         # Instantiate Insuricare()
         pipeline = Insuricare()
 
         # Data Cleaning
-        data = pipeline.data_cleaning(test_raw)
+        df_clean = pipeline.data_cleaning(test_raw)
                     
         # Feature Engineering
-        data = pipeline.feature_engineering(data)
+        df_eng = pipeline.feature_engineering(df_clean)
         
         # Data Preparation
-        data = pipeline.data_preparation(data)
+        data_prep = pipeline.data_preparation(df_eng)
         
         # Prediction
-        df_response = pipeline.get_prediction(model, test_raw, data) 
+        df_response = pipeline.get_prediction(model, original_test_raw, data_prep) 
         
         return df_response        
                 
