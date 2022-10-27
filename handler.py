@@ -4,7 +4,7 @@ import pandas as pd
 from flask import Flask, request, Response
 from insuricare.insuricare import Insuricare
 
-model = pickle.load(open('models/model_insuricare.pkl', 'rb'))
+model = pickle.load(open('model/model_insuricare.pkl', 'rb'))
 
 # initialize API
 app = Flask(__name__)
