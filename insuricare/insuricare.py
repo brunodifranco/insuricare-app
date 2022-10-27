@@ -35,15 +35,15 @@ class Insuricare():
 
         # annual_premium
         df3['annual_premium'] = self.annual_premium_scaler.transform(df3[['annual_premium']].values)
-
+        
         # gender - wasn't selected
         # df3 = pd.get_dummies(df3, prefix=['gender'], columns=['gender']).rename(columns={'gender_Female': 'female', 'gender_Male': 'male'})
 
         # region_code
-        df3.loc[:,'region_code'] = df3['region_code'].map(self.region_code_scaler) 
+        df3 = df3.assign(region_code=df6['region_code'].map(self.region_code_scaler))
 
         # policy_sales_channel
-        df3.loc[:,'policy_sales_channel'] = df3['policy_sales_channel'].map(self.policy_sales_channel_scaler)
+        df3 = df3.assign(policy_sales_channel=df6['policy_sales_channel'].map(self.policy_sales_channel_scaler))
 
         # vehicle_age - wasn't selected 
         # df3['vehicle_age'] = self.vehicle_age_oe_scaler.transform(df3[['vehicle_age']].values)
