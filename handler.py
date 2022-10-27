@@ -16,8 +16,7 @@ def insurance_predict():
                     
     if test_json: #there is data
         if isinstance(test_json, dict): #unique example
-            test_raw = pd.DataFrame(test_json, index=[0])
-                    
+            test_raw = pd.DataFrame(test_json, index=[0])                    
         else:
             test_raw = pd.DataFrame(test_json, columns=test_json[0].keys())
             
@@ -27,16 +26,16 @@ def insurance_predict():
         pipeline = Insuricare()
 
         # Data Cleaning
-        df_clean = pipeline.data_cleaning(test_raw)
+        df1 = pipeline.data_cleaning(test_raw)
                     
         # Feature Engineering
-        df_eng = pipeline.feature_engineering(df_clean)
+        df2 = pipeline.feature_engineering(df1)
         
         # Data Preparation
-        data_prep = pipeline.data_preparation(df_eng)
+        df3 = pipeline.data_preparation(df2)
         
         # Prediction
-        df_response = pipeline.get_prediction(model, original_test_raw, data_prep) 
+        df_response = pipeline.get_prediction(model, original_test_raw, df3) 
         
         return df_response        
                 
@@ -45,4 +44,4 @@ def insurance_predict():
                     
 if __name__ == '__main__':
     port = os.environ.get('PORT', 5000)
-    app.run(host='0.0.0.0', port=port)
+    app.run(host = '0.0.0.0', port=port)
