@@ -1,7 +1,7 @@
 import pickle
 import pandas as pd
 
-class Insuricare:
+class Insuricare():
     def __init__(self):
         self.path = ''
         self.age_scaler                  = pickle.load(open(self.path + 'scalers/age_scaler.pkl', 'rb'))
