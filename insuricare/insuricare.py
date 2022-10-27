@@ -35,7 +35,7 @@ class Insuricare():
         df3['annual_premium'] = self.annual_premium_scaler.transform(df3[['annual_premium']].values)
 
         # gender
-        df3 = pd.get_dummies(df3, prefix=['gender'], columns=['gender']).rename(columns={'gender_Female': 'female', 'gender_Male': 'male'})    
+        # df3 = pd.get_dummies(df3, prefix=['gender'], columns=['gender']).rename(columns={'gender_Female': 'female', 'gender_Male': 'male'})   # wasn't selected 
 
         # region_code
         df3['region_code'] = df3['region_code'].astype(str)
@@ -46,10 +46,10 @@ class Insuricare():
         df3.loc[:,'policy_sales_channel'] = df3['policy_sales_channel'].map(self.policy_sales_channel_scaler)
 
         # vehicle_age
-        df3['vehicle_age'] = self.vehicle_age_oe_scaler.transform(df3[['vehicle_age']].values)
+        # df3['vehicle_age'] = self.vehicle_age_oe_scaler.transform(df3[['vehicle_age']].values)  # wasn't selected 
 
         # Now rescaling new vehicle_age - MinMaxScaler
-        df3['vehicle_age'] = self.vehicle_age_mms_scaler.transform(df3[['vehicle_age']].values)
+        # df3['vehicle_age'] = self.vehicle_age_mms_scaler.transform(df3[['vehicle_age']].values)  # wasn't selected 
 
         # Feature Selection
         cols_selected = ['vintage', 'annual_premium', 'age', 'region_code', 'policy_sales_channel', 'vehicle_damage', 'previously_insured']
