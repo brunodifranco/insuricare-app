@@ -13,55 +13,55 @@ class Insuricare():
         self.vintage_scaler              = pickle.load(open(self.path + 'scalers/vintage_scaler.pkl', 'rb'))
 
     def data_cleaning(self, df1):
-        return df1 # No data cleaning transformations were applied
+        df1['region_code'] = df1['region_code'].astype(str)
+        df1['policy_sales_channel'] = df1['policy_sales_channel'].astype(str)
+        return df1 
 
-    def feature_engineering(self, df2):
+    def feature_engineering (self, df2):
+        # vehicle age
         df2['vehicle_age'] = df2['vehicle_age'].apply(lambda x: 'below_1_year' if x=='< 1 Year'
-                                              else 'between_1_2_years' if x=='1-2 Year'
-                                              else 'above_2_years')
-
-        df2['vehicle_damage'] = df2['vehicle_damage'].apply(lambda x: 0 if x=='No' 
-                                                                else 1)
+                                                      else 'between_1_2_years' if x=='1-2 Year'
+                                                      else 'above_2_years')
+        # vehicle damage
+        df2['vehicle_damage'] = df2['vehicle_damage'].apply(lambda x: 0 if x=='No' else 1)
         return df2
 
-    def data_preparation(self, df3):
-        # age - MinMaxScaler
+    def data_preparation (self, df3):
+        # age
         df3['age'] = self.age_scaler.transform(df3[['age']].values)
 
-        # vintage - MinMaxScaler
+        # vintage
         df3['vintage'] = self.vintage_scaler.transform(df3[['vintage']].values)
 
-        # RobustScaler - annual_premium
+        # annual_premium
         df3['annual_premium'] = self.annual_premium_scaler.transform(df3[['annual_premium']].values)
 
-        # gender
-        # df3 = pd.get_dummies(df3, prefix=['gender'], columns=['gender']).rename(columns={'gender_Female': 'female', 'gender_Male': 'male'})   # wasn't selected 
+        # gender - wasn't selected
+        # df3 = pd.get_dummies(df3, prefix=['gender'], columns=['gender']).rename(columns={'gender_Female': 'female', 'gender_Male': 'male'})
 
         # region_code
-        df3['region_code'] = df3['region_code'].astype(str)
-        df3.loc[:,'region_code'] = df3['region_code'].map(self.region_code_scaler)
+        df3.loc[:,'region_code'] = df3['region_code'].map(self.region_code_scaler) 
 
-        # policy_sales_channel 
-        df3['policy_sales_channel'] = df3['policy_sales_channel'].astype(str)
+        # policy_sales_channel
         df3.loc[:,'policy_sales_channel'] = df3['policy_sales_channel'].map(self.policy_sales_channel_scaler)
 
-        # vehicle_age
-        # df3['vehicle_age'] = self.vehicle_age_oe_scaler.transform(df3[['vehicle_age']].values)  # wasn't selected 
-
-        # Now rescaling new vehicle_age - MinMaxScaler
-        # df3['vehicle_age'] = self.vehicle_age_mms_scaler.transform(df3[['vehicle_age']].values)  # wasn't selected 
+        # vehicle_age - wasn't selected 
+        # df3['vehicle_age'] = self.vehicle_age_oe_scaler.transform(df3[['vehicle_age']].values)
+        # df3['vehicle_age'] = self.vehicle_age_mms_scaler.transform(df3[['vehicle_age']].values)
 
         # Feature Selection
         cols_selected = ['vintage', 'annual_premium', 'age', 'region_code', 'policy_sales_channel', 'vehicle_damage', 'previously_insured']
 
         return df3[cols_selected]
 
+
     def get_prediction(self, model, original_data, test_data):
+
         # Prediction
         pred = model.predict_proba(test_data)
-        
+
         # Prediction as a column in the original data
         original_data['score'] = pred[:, 1].tolist()
         original_data = original_data.sort_values('score', ascending=False)
-        
-        return original_data.to_json(orient='records', date_format='iso') # Converts to json
+
+        return original_data.to_json(orient= 'records', date_format = 'iso')
